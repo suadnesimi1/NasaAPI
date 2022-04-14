@@ -1,7 +1,7 @@
 package com.example.NasaAPI.Repository;
 
 
-import com.example.NasaAPI.Domain.Photos;
+import com.example.NasaAPI.Domain.ListPhoto;
 import com.example.NasaAPI.Service.DateService;
 import com.example.NasaAPI.Service.DownloadService;
 import com.example.NasaAPI.Service.PhotoService;
@@ -26,9 +26,6 @@ public class NasaRepo {
     private DateService dateService;
 
     @Autowired
-    private DownloadService downloadService;
-
-    @Autowired
     private PhotoService photoService;
 
     private final Logger LOGGER = LoggerFactory
@@ -40,21 +37,21 @@ public class NasaRepo {
     Set<String> dates;
 
     @GetMapping("/photo")
-    public void downloadAndDisplayRandomPhoto() {
+    public void downloadAndDisplayPhoto() {
         dates = dateService.readDateFile(FILE_PATH);
         processRequest(dates, true, true);
     }
 
 
     @GetMapping("/photo/download")
-    public void downloadRandomPhoto() {
+    public void downloadPhoto() {
         dates = dateService.readDateFile(FILE_PATH);
         processRequest(dates, true, false);
     }
 
 
     @GetMapping("/photo/display")
-    public void displayRandomPhoto() {
+    public void displayPhoto() {
         dates = dateService.readDateFile(FILE_PATH);
         processRequest(dates, false, true);
     }
@@ -63,8 +60,8 @@ public class NasaRepo {
                                 boolean display) {
         for (String date : dates) {
             LOGGER.debug("Processing request for photo taken on {}", date);
-            Photos photo = photoService.getRandomPhoto(date);
-            LOGGER.debug("Random photo selected :: {}", photo);
+            ListPhoto photo = photoService.getPhoto(date);
+            LOGGER.debug("Photo selected :: {}", photo);
 
         }
     }

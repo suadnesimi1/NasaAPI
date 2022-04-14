@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @Service
 public class DownloadService {
-    private static final Logger LOGGER = (Logger) LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(DownloadService.class);
     private static final String DOWNLOAD_FOLDER = System
             .getProperty("user.home") + "/Downloads/";

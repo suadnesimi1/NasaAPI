@@ -20,4 +20,9 @@ public class ListPhoto {
     public String toString() {
         return "PhotoList [photos=" + Arrays.toString(photos) + "]";
     }
+
+    public int nextInt(int length) {
+        this.photos = getPhotos();
+        return length;
+    }
 }

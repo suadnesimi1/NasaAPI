@@ -1,7 +1,7 @@
 package com.example.NasaAPI.Service;
 import com.example.NasaAPI.Domain.ListPhoto;
 import java.util.Arrays;
-import java.util.Random;
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class PhotoService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private static final Random RANDOM = new Random();
+
 
     private static final String URI = "https://api.nasa.gov/planetary/apod?api_key=isOwDIZLa6CLuNLYqc1q3WjG90yciNHxywRzkcdV";
     private static final String NAVCAM = "NAVCAM";
@@ -48,9 +48,9 @@ public class PhotoService {
         entity = new HttpEntity<>(headers);
     }
 
-    public Photos getRandomPhoto(String date) {
+    public ListPhoto getPhoto(String date) {
         listPhoto = getAllPhotos(date);
-        Photos randomPhoto = null;
+        Photos photo = null;
         if (listPhoto != null && listPhoto.getPhotos() != null) {
             Photos[] photos = listPhoto.getPhotos();
             if (photos.length == 0) {
@@ -58,10 +58,10 @@ public class PhotoService {
                         "No photos available for the requested date " + date
                                 + ". You may want to try other dates.");
             }
-            randomPhoto = photos[RANDOM.nextInt(photos.length)];
-            LOGGER.debug("Random photo picked :: {}", randomPhoto);
+            photo = photos[listPhoto.nextInt(photos.length)];
+            LOGGER.debug("Photo picked :: {}", listPhoto);
         }
-        return randomPhoto;
+        return listPhoto;
     }
 
     public ListPhoto getAllPhotos(String date) {
